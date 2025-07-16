@@ -20,7 +20,7 @@ This tool:
 ## 🔧 Example Command
 
 ```bash
-npx move2ts extract --target ./contracts/auction.move --print_to ./frontend/
+npx move2ts extract --target ./contracts/auction.move --print-to ./frontend/
 ```
 
 ---

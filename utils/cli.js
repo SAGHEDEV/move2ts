@@ -22,8 +22,8 @@ const flags = {
 	},
 	output: {
 		type: `string`,
-		default: '/',
-		shortFlag: `print_to`,
+		default: '',
+		shortFlag:`print-to`,
 		desc: `Optional value of where result should be printed`
 	},
 };

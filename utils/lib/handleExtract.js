@@ -160,9 +160,24 @@ const handleGetFileContent = () => {
 		});
 		process.exit(1);
 	}
-	let rootDir = output
-		? path.join(output, 'types')
+
+	let resolvedOutput =
+		output && !path.isAbsolute(output)
+			? path.resolve(process.cwd(), output)
+			: output;
+
+	let rootDir = resolvedOutput
+		? path.join(resolvedOutput, 'types')
 		: path.join(process.cwd(), 'types');
+
+	// 🚨 Prevent writing to /types in system root
+	if (path.resolve(rootDir) === path.resolve('/types')) {
+		alert({
+			type: `warning`,
+			msg: `Refusing to write to system root directory "/types". Please check your --print-tto flag.`
+		});
+		process.exit(1);
+	}
 
 	if (!fs.existsSync(rootDir)) {
 		fs.mkdirSync(rootDir, { recursive: true });
@@ -180,7 +195,7 @@ const handleGetFileContent = () => {
 	const successMessage = `
 🎉 Success! Your Move structs have been converted to TypeScript.
 
-📁 Output saved to: ${path.relative(process.cwd(), fileOut)}
+📁 Output saved to: ${path.relative(process.cwd(), fileOut)} ${!output || output == '' ? `as '--print_to' flag couldn't find the directory you passed` : ''}
 
 💡 Tip: You can now import the generated interfaces into your frontend project.
 	`;

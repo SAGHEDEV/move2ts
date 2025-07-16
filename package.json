@@ -1,7 +1,7 @@
 {
 	"name": "move2ts",
 	"description": "This is a CLI to convert Move syntax to usable TypeScript types for developers",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"license": "MIT",
 	"type": "module",
 	"bin": {
